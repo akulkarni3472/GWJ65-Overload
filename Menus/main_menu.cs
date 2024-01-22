@@ -1,22 +1,28 @@
 using Godot;
 using System;
 
-public partial class main_menu : Control
-{
+public partial class main_menu : Control {
+	private Button playButton;
+	private Button quitButton;
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() {
-		//
+		playButton = GetNode<Button>("MarginContainer/VBoxContainer/Play");
+		quitButton = GetNode<Button>("MarginContainer/VBoxContainer/Quit");
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta) {
-		//
+		_onPlayPressed();
+		_on_quit_pressed();
 	}
-	
-}
 
+	public void _onPlayPressed() {
+		 playButton.Pressed += () =>
+			GetTree().ChangeSceneToFile("Levels/prototype.tscn");
+	}
 
-private void _on_quit_pressed()
-{
-	GetTree.Quit();
+	public void _on_quit_pressed() {
+		quitButton.Pressed += () =>
+			GetTree().Quit();
+	}
 }
